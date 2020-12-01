@@ -1,0 +1,57 @@
+{% extends 'landing/base1.html' %}
+{% load crispy_forms_tags %}
+
+
+{% block title %}EXAMINERS' QUESTION PAGE{% endblock title %}
+
+{% block style %}
+
+{% endblock style %}
+
+{% block content %}
+    <h2>Set Your Questions By Filling The Form Below</h2>
+    <form method="post">
+        {% csrf_token %}
+        Username: {{ user }}
+        {{ form|crispy }}
+        <input type="submit" value="SUBMIT">
+    </form>
+
+    {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+                <li class="{{ message.tags }}">
+                    {{ message|safe }}
+                    <a href="#" class="close">x</a>
+                </li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+{% endblock content %}
+
+{% block javascript %}
+
+{% endblock javascript %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    
+</body>
+</html>

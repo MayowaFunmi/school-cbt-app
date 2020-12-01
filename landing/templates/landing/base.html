@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- CSS only -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Tangerine">
+    <link rel="stylesheet" href="{% static 'css/mystyle.css' %}">
+
+    <title>{% block title %}Mayor Online Exam | Home{% endblock %}</title>
+
+
+</head>
+<body>
+    <!-- Navigation Bars -->
+    <header>
+        <!-- Start Top Bar -->
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="top-bar">
+                        <div class="row">
+                            <div class="col-md-8">
+                                <!-- Start Contact Info -->
+                                <ul class="contact-details list-inline" id="list1">
+                                    <li><a href="#"><i class="fa fa-phone"></i> +234 8187669362</a>
+                                    </li>
+                                    <li><a href="#"><i class="fa fa-phone"></i> +234 9032055129</a>
+                                    </li>
+                                    <li><a href="#"><i class="fa fa-envelope-o"></i> akinade.mayowa@gmail.com</a>
+                                    </li>
+                                </ul>
+                                <!-- End Contact Info -->
+                            </div><!-- .col-md-6 -->
+                            <div class="col-md-4">
+                                <!-- Start Social Links -->
+                                <ul class="social-list list-inline" id="list2">
+                                    <li>
+                                        <a href="https://www.facebook.com/akinademayowa"><i class="fa fa-facebook"></i></a>
+                                    </li>
+                                    <li>
+                                        <a href="https://www.facebook.com/mayowaakinade"><i class="fa fa-twitter"></i></a>
+                                    </li>
+                                    <li>
+                                        <a href="#"><i class="fa fa-youtube"></i></a>
+                                    </li>
+                                    <li>
+                                        <a href="#"><i class="fa fa-linkedin"></i></a>
+                                    </li>
+                                    <li>
+                                        <a href="#"><i class="fa fa-whatsapp"></i></a>
+                                    </li>
+                                    <li>
+                                        <a href="#"><i class="fa fa-skype"></i></a>
+                                    </li>
+                                </ul>
+                                <!-- End Social Links -->
+                            </div><!-- .col-md-6 -->
+                        </div>
+                    </div>
+                </div>
+            </div><!-- .row -->
+        </div><!-- .container -->
+        <!-- End Top Bar-->
+
+        <!-- Start Nav Bar -->
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="navbar navbar-default navbar-top">
+                        <div class="navbar-header">
+                            <a class="navbar-brand" id="header-font" href="{% url 'landing:home' %}">Online Exam And Quiz</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-8">
+                    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                        <a class="navbar-brand" id="home" href="{% url 'landing:home' %}">Home</a>
+                        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+                        <div class="collapse navbar-collapse" id="navbarNav">
+                            <ul class="navbar-nav" id="bar-list">
+
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{% url 'landing:members' %}">Team Members</a>
+                                </li>
+
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{% url 'landing:about' %}">About Us</a>
+                                </li>
+
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{% url 'landing:contact' %}">Contact</a>
+                                </li>
+
+                                {% if user.is_authenticated %}
+                                    <li class="nav-item">Welcome! <br>{{ user.username }}</li>
+                                    <li class="nav-item"><a class="nav-link" href="{% url 'users:logout' %}">Log Out</a></li>
+                                    {% if request.user.status == 'candidate' %}
+                                        <div class="dropdown">
+                                            <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                Select Options
+                                            </button>
+                                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                                <a class="dropdown-item" href="{% url 'users:candidate_detail' %}">Your Profile</a>
+                                                <a class="dropdown-item" href="{% url 'exams:register_exam' %}">My Details</a>
+                                                <a class="dropdown-item" href="#">Change Password</a>
+                                                <a class="dropdown-item" href="#">Reset Password</a>
+                                            </div>
+                                        </div>
+                                    {% elif request.user.status == 'examiner' %}
+                                        <div class="dropdown">
+                                            <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" id="dropdownMenuButton" aria-haspopup="true" aria-expanded="false">
+                                                Select Options
+                                            </button>
+                                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                                <a class="dropdown-item" href="{% url 'users:examiner_detail' %}">Your Profile</a>
+                                                <a class="dropdown-item" href="{% url 'exam_question:my_details' %}">My Details</a>
+                                                <a class="dropdown-item" href="{% url 'exam_question:my_questions' %}">My Questions</a>
+                                                <a class="dropdown-item" href="#">Change Password</a>
+                                                <a class="dropdown-item" href="#">Reset Password</a>
+                                            </div>
+                                        </div>
+                                    {% elif request.user.is_staff == True %}
+                                        <div class="dropdown">
+                                            <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" id="dropdownMenuButton" aria-haspopup="true" aria-expanded="false">
+                                                More Options
+                                            </button>
+                                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                                <a class="dropdown-item" href="{% url 'exams:add_department' %}">Add Department</a>
+                                                <a class="dropdown-item" href="{% url 'exams:add_subject' %}">Add Subject</a>
+                                                <a class="dropdown-item" href="{% url 'exams:add_student_class' %}">Add Class</a>
+                                                <a class="dropdown-item" href="{% url 'exams:add_student_level' %}">Add Level</a>
+                                            </div>
+                                        </div>
+                                    {% endif %}
+                                {% else %}
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="{% url 'users:signup' %}">Sign Up</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="{% url 'users:login' %}">Log In</a>
+                                    </li>
+                                {% endif %}
+                            </ul>
+                        </div>
+                    </nav>
+                </div>
+            </div>
+        </div>
+        <!-- End Nav Bar -->
+    </header>
+
+
+    <!-- Start Header Section -->
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-4">
+                <div class="banner">
+                    <div class="overlay">
+                        <div class="intro-text">
+                            <h1>Welcome To <br><span>Mayor Online Exam/Quiz Website</span></h1>
+                            <p>
+                                Here you can register and take part in our series of online exams<br>
+                                Check the panel on the right side to see the instructions and procedures to use this site
+                            </p>
+                            <!--<a href="% url 'landing:instruction' %" class="page-scroll btn btn-primary">Read More</a>-->
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-8" style="background-color: #393a40; color: white;">
+                <div id="back-img">
+                    <h2>
+                        This part is meant for both examiners and candidates. In the registration form there is an option to choose whether you are an examiner or a candidate<br>
+                        Follow the following instruction carefully.<br>
+                        Note that every page has link directly to the next page.
+                    </h2>
+                    <p style="color: red;">
+                        To use this site, you will need to <span>SIGN UP</span> first, then <span>LOG IN</span> using your username and password.<br>
+                        Once you log in, the next stage is to <span>UPDATE YOUR PROFILE</span>; you will need to fill in all necessary personal details using the form provided.<br>
+                        Then if you are a candidate, the next step is to <span>REGISTER FOR EXAMS</span>
+                    </p>
+
+                </div>
+                <div>
+                    {% block content %}
+                    {% endblock content %}
+
+                    {% block team_members %}
+                    {% endblock team_members %}
+
+                    {% block exam_details %}
+                    {% endblock exam_details %}
+
+                    {% block about %}
+                    {% endblock about %}
+
+
+                    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+                    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+                    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+
+                    {% block javascript %}
+                    {% endblock javascript %}
+
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

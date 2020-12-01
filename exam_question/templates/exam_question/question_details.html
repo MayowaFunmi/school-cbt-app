@@ -1,0 +1,26 @@
+{% extends 'landing/base1.html' %}
+{% load static %}
+
+
+{% block title %}Exams in Django Ajax{% endblock %}
+
+{% block content %}
+    <div>
+        <h2>Department: {{ department }}</h2>
+        <h2>Subject: {{ subject.subject_name }} {{ subject.subject_code }}</h2>
+        <h2>Class: {{ std_class }}</h2>
+        <h2>Level: {{ std_level }}</h2>
+    </div>
+
+    <div>
+        {% for question in questions %}
+        <h3>
+            Question {{ question.id }}: {{ question }}<br>
+            A. {{ question.option_A }}<br>
+            B. {{ question.option_B }}<br>
+            C. {{ question.option_C }}<br>
+            D. {{ question.option_D }}<br>
+        </h3>
+        {% endfor %}
+    </div>
+{% endblock %}

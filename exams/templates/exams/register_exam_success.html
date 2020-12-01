@@ -1,0 +1,38 @@
+{% extends 'landing/base1.html' %}
+
+{% block title %}CANDIDATE'S EXAM REGISTRATION SUCCESS{% endblock title %}
+
+{% block style %}
+
+{% endblock style %}
+
+{% block content %}
+    <div>
+        <h1>Hello, {{ student.last_name }} {{ student.first_name }}, Summary of your registration details:</h1>
+        <h2>
+            <strong>
+                Department: {{ department }}<br>
+                Class: {{ std_class }}<br>
+                Level: {{ std_level }}<br>
+                1. {{ subject_1.subject_name }} ({{ subject_1.subject_code }})<br>
+                2. {{ subject_2.subject_name }} ({{ subject_2.subject_code }}<br>
+                3. {{ subject_3.subject_name }} ({{ subject_3.subject_code }}<br>
+                4. {{ subject_4.subject_name }} ({{ subject_4.subject_code }}<br>
+                5. {{ subject_5.subject_name }} ({{ subject_5.subject_code }}<br>
+                6. {{ subject_6.subject_name }} ({{ subject_6.subject_code }}<br>
+                7. {{ subject_7.subject_name }} ({{ subject_7.subject_code }}<br>
+                8. {{ subject_8.subject_name }} ({{ subject_8.subject_code }}<br>
+                9. {{ subject_9.subject_name }} ({{ subject_9.subject_code }}<br>
+            </strong>
+        </h2>
+    </div>
+
+    <div>
+        <p>Proceed to take quiz <a href="#">HERE</a></p>
+    </div>
+
+{% endblock content %}
+
+{% block javascript %}
+
+{% endblock javascript %}

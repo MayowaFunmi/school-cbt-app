@@ -1,0 +1,41 @@
+{% extends 'landing/base1.html' %}
+
+{% block title %}EXAMINERS' QUESTION SUMMARY{% endblock title %}
+
+{% block style %}
+
+{% endblock style %}
+
+{% block content %}
+    <div class="form-group">
+        {% if messages %}
+            {% for message in messages %}
+                {% if message.tags == 'error' %}
+                    <div class="alert alert-danger" style="margin-top:10px">{{ message }}</div>
+                {% endif %}
+
+                {% if message.tags == 'success' %}
+                    <div class="alert alert-success" style="margin-top:10px">{{ message }}</div>
+                {% endif %}
+            {% endfor %}
+        {% endif %}
+    </div>
+
+    <h1>The Summary of your question is as follows:</h1><br>
+    {% for question in questions %}
+
+        <h2>Question {{ question.id }}: {{ question.question }}</h2>
+        <h2>A: {{ question.option_A }}</h2>
+        <h2>B: {{ question.option_B }}</h2>
+        <h2>C: {{ question.option_C }}</h2>
+        <h2>D: {{ question.option_D }}</h2>
+        <h1>The correct answer is {{ question.answer }} </h1><br>
+
+        <a href="{% url 'exam_question:edit' question.id %}" class="btn btn-success">EDIT</a>
+        <a href="#" class="btn btn-danger">DELETE</a>
+    {% endfor %}
+        <p>Top</p>
+        <p>Click <strong><a href="{% url 'exam_question:further_maths_1' %}">here</a></strong> to add another question</p>
+        <p>Finished setting your questions? Go <a href="#">Home</a></p>
+
+{% endblock content %}

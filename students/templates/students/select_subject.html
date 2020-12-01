@@ -1,0 +1,142 @@
+{% extends 'landing/base1.html' %}
+{% load static %}
+
+{% block title %}Select Exam Subject{% endblock %}
+
+{% block content %}
+<h1>Select Exam Subject To Write:</h1>
+
+    <div class="form-group">
+        {% if messages %}
+            {% for message in messages %}
+                {% if message.tags == 'error' %}
+                    <div class="alert alert-danger" style="margin-top:10px">
+                        {{ message }}
+                    </div>
+                {% endif %}
+                {% if message.tags == 'success' %}
+                    <div class="alert alert-success" style="margin-top:10px">{{ message }}</div>
+                {% endif %}
+            {% endfor %}
+        {% endif %}
+    </div>
+
+    <div class="container">
+        <h1>MATHEMATICS</h1>
+        <h2><a href="{% url 'student:question' %}" class="btn btn-success">SSS 1</a></h2>
+        <h2><a href="{% url 'exam_question:maths_2' %}" class="btn btn-success">SSS 2</a></h2>
+        <h2><a href="{% url 'exam_question:maths_3' %}" class="btn btn-success">SSS 3</a></h2>
+    </div>
+
+    <div class="container">
+        <h1>English Language</h1>
+        <h2><a href="{% url 'exam_question:english_1' %}" class="btn btn-success">SSS 1</a></h2>
+        <h2><a href="{% url 'exam_question:english_2' %}" class="btn btn-success">SSS 2</a></h2>
+        <h2><a href="{% url 'exam_question:english_3' %}" class="btn btn-success">SSS 3</a></h2>
+    </div>
+
+    <div class="container">
+        <h1>Physics</h1>
+        <h2><a href="{% url 'exam_question:physics_1' %}" class="btn btn-success">SSS 1</a></h2>
+        <h2><a href="{% url 'exam_question:physics_2' %}" class="btn btn-success">SSS 2</a></h2>
+        <h2><a href="{% url 'exam_question:physics_3' %}" class="btn btn-success">SSS 3</a></h2>
+    </div>
+
+    <div class="container">
+        <h1>Chemistry</h1>
+        <h2><a href="{% url 'exam_question:chemistry_1' %}" class="btn btn-success">SSS 1</a></h2>
+        <h2><a href="{% url 'exam_question:chemistry_2' %}" class="btn btn-success">SSS 2</a></h2>
+        <h2><a href="{% url 'exam_question:chemistry_3' %}" class="btn btn-success">SSS 3</a></h2>
+    </div>
+
+    <div class="container">
+        <h1>Biology</h1>
+        <h2><a href="{% url 'exam_question:biology_1' %}" class="btn btn-success">SSS 1</a></h2>
+        <h2><a href="{% url 'exam_question:biology_2' %}" class="btn btn-success">SSS 2</a></h2>
+        <h2><a href="{% url 'exam_question:biology_3' %}" class="btn btn-success">SSS 3</a></h2>
+    </div>
+
+    <div class="container">
+        <h1>Civic Education</h1>
+        <h2><a href="{% url 'exam_question:civic_1' %}" class="btn btn-success">SSS 1</a></h2>
+        <h2><a href="{% url 'exam_question:civic_2' %}" class="btn btn-success">SSS 2</a></h2>
+        <h2><a href="{% url 'exam_question:civic_3' %}" class="btn btn-success">SSS 3</a></h2>
+    </div>
+
+    <div class="container">
+        <h1>Marketing</h1>
+        <h2><a href="{% url 'exam_question:marketing_1' %}" class="btn btn-success">SSS 1</a></h2>
+        <h2><a href="{% url 'exam_question:marketing_2' %}" class="btn btn-success">SSS 2</a></h2>
+        <h2><a href="{% url 'exam_question:marketing_3' %}" class="btn btn-success">SSS 3</a></h2>
+    </div>
+
+    <div class="container">
+        <h1>Government</h1>
+        <h2><a href="{% url 'exam_question:government_1' %}" class="btn btn-success">SSS 1</a></h2>
+        <h2><a href="{% url 'exam_question:government_2' %}" class="btn btn-success">SSS 2</a></h2>
+        <h2><a href="{% url 'exam_question:government_3' %}" class="btn btn-success">SSS 3</a></h2>
+    </div>
+
+    <div class="container">
+        <h1>Financial Accounting</h1>
+        <h2><a href="{% url 'exam_question:account_1' %}" class="btn btn-success">SSS 1</a></h2>
+        <h2><a href="{% url 'exam_question:account_2' %}" class="btn btn-success">SSS 2</a></h2>
+        <h2><a href="{% url 'exam_question:account_3' %}" class="btn btn-success">SSS 3</a></h2>
+    </div>
+
+    <div class="container">
+        <h1>Literature-In-English</h1>
+        <h2><a href="{% url 'exam_question:eng_lit_1' %}" class="btn btn-success">SSS 1</a></h2>
+        <h2><a href="{% url 'exam_question:eng_lit_2' %}" class="btn btn-success">SSS 2</a></h2>
+        <h2><a href="{% url 'exam_question:eng_lit_3' %}" class="btn btn-success">SSS 3</a></h2>
+    </div>
+
+    <div class="container">
+        <h1>Commerce</h1>
+        <h2><a href="{% url 'exam_question:commerce_1' %}" class="btn btn-success">SSS 1</a></h2>
+        <h2><a href="{% url 'exam_question:commerce_2' %}" class="btn btn-success">SSS 2</a></h2>
+        <h2><a href="{% url 'exam_question:commerce_3' %}" class="btn btn-success">SSS 3</a></h2>
+    </div>
+
+    <div class="container">
+        <h1>Christian Religious Knowkedge</h1>
+        <h2><a href="{% url 'exam_question:crs_1' %}" class="btn btn-success">SSS 1</a></h2>
+        <h2><a href="{% url 'exam_question:crs_2' %}" class="btn btn-success">SSS 2</a></h2>
+        <h2><a href="{% url 'exam_question:crs_3' %}" class="btn btn-success">SSS 3</a></h2>
+    </div>
+
+    <div class="container">
+        <h1>Geography</h1>
+        <h2><a href="{% url 'exam_question:geography_1' %}" class="btn btn-success">SSS 1</a></h2>
+        <h2><a href="{% url 'exam_question:geography_2' %}" class="btn btn-success">SSS 2</a></h2>
+        <h2><a href="{% url 'exam_question:geography_3' %}" class="btn btn-success">SSS 3</a></h2>
+    </div>
+
+    <div class="container">
+        <h1>Economics</h1>
+        <h2><a href="{% url 'exam_question:economics_1' %}" class="btn btn-success">SSS 1</a></h2>
+        <h2><a href="{% url 'exam_question:economics_2' %}" class="btn btn-success">SSS 2</a></h2>
+        <h2><a href="{% url 'exam_question:economics_3' %}" class="btn btn-success">SSS 3</a></h2>
+    </div>
+
+    <div class="container">
+        <h1>Further Mathematics</h1>
+        <h2><a href="{% url 'exam_question:further_maths_1' %}" class="btn btn-success">SSS 1</a></h2>
+        <h2><a href="{% url 'exam_question:further_maths_2' %}" class="btn btn-success">SSS 2</a></h2>
+        <h2><a href="{% url 'exam_question:further_maths_3' %}" class="btn btn-success">SSS 3</a></h2>
+    </div>
+
+    <div class="container">
+        <h1>Agric. Science</h1>
+        <h2><a href="{% url 'exam_question:agric_1' %}" class="btn btn-success">SSS 1</a></h2>
+        <h2><a href="{% url 'exam_question:agric_2' %}" class="btn btn-success">SSS 2</a></h2>
+        <h2><a href="{% url 'exam_question:agric_3' %}" class="btn btn-success">SSS 3</a></h2>
+    </div>
+
+    <div class="container">
+        <h1>Yoruba Language</h1>
+        <h2><a href="{% url 'exam_question:yoruba_1' %}" class="btn btn-success">SSS 1</a></h2>
+        <h2><a href="{% url 'exam_question:yoruba_2' %}" class="btn btn-success">SSS 2</a></h2>
+        <h2><a href="{% url 'exam_question:yoruba_3' %}" class="btn btn-success">SSS 3</a></h2>
+    </div>
+{% endblock content %}

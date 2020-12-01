@@ -1,0 +1,79 @@
+{% extends 'landing/base1.html' %}
+{% load static %}
+
+
+{% block title %}Exams in Django Ajax{% endblock %}
+
+{% block content %}
+
+    <!-- Add New Exam Form Page -->
+    <div class="container">
+        <h1>Exam Questions Registration</h1>
+        <div class="row">
+            <div class="col-md-8 ">
+                <h3>Fill The Form Below To register for exams to set: </h3>
+                <form id="addQuestion" method="POST">
+                    {% csrf_token %}
+
+                    <div class="form-group">
+                        {% if messages %}
+                            {% for message in messages %}
+                                {% if message.tags == 'error' %}
+                                    <div class="alert alert-danger" style="margin-top:10px">{{ message }}</div>
+                                {% endif %}
+                                {% if message.tags == 'success' %}
+                                    <div class="alert alert-success" style="margin-top:10px">{{ message }}</div>
+                                {% endif %}
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+                    <div class="container">
+                        <h3>Examiner's Name: {{ examiner.last_name }} {{ examiner.first_name }}</h3><br>
+                        <h3>Examiner's ID: {{ examiner.unique_id }}</h3>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Department:</label>
+                        <select class="form-control" name="department" id='department'>
+                            {% for dept in departments %}
+                                <option value="{{ dept.id }}">{{ dept.department }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Subject:</label>
+                        <select class="form-control" name="subject">
+                            {% for sub in subjects %}
+                                <option value="{{ sub.id }}">{{ sub.subject_name }}({{ sub.subject_code }})</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Student Class:</label>
+                        <select class="form-control" name="student_class">
+                            {% for s_class in stds_class %}
+                                <option value="{{ s_class.id }}">{{ s_class.student_class }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Student Level:</label>
+                        <select class="form-control" name="student_level">
+                            {% for s_level in stds_level %}
+                                <option style="width: 250px;" value="{{ s_level.id }}">{{ s_level.student_level }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    <div class="card-footer">
+                        <button type="submit" class="btn btn-primary btn-block" style="background: green; border-color: white;">Submit Your Details</button>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

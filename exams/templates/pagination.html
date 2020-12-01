@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <div class="pagination">
+        <span class="step-links">
+            {% if questions.has_previous %}
+                <a href="?page={{ questions.previous_page_number }}">Previous</a>
+            {% endif %}
+            <span class="current">
+                Page {{ questions.number }} of {{ questions.paginator.num_pages }}.
+            </span>
+            {% if questions.has_next %}
+                <a href="?page={{ questions.next_page_number }}">Next</a>
+            {% endif %}
+        </span>
+    </div>
+</body>
+</html>

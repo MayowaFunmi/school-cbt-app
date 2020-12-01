@@ -1,0 +1,27 @@
+{% extends 'landing/base1.html' %}
+
+{% block title %}EXAMINERS' QUESTION SUMMARY{% endblock title %}
+
+{% block style %}
+
+{% endblock style %}
+
+{% block content %}
+    <h1>The Summary of your question is as follows:</h1><br>
+    {% for each in exam %}
+
+        <h2>Question {{ each.id }}: {{ each.question }}</h2>
+        <h2>A: {{ each.A }}</h2>
+        <h2>B: {{ each.B }}</h2>
+        <h2>C: {{ each.C }}</h2>
+        <h2>D: {{ each.D }}</h2>
+        <h1>The correct answer is {{ each.answer }} </h1><br>
+    {% endfor %}
+        <p>Click <strong><a href="{% url 'exams:question' %}">here</a></strong> to add another question</p>
+        <p>Finished setting your questions? Go <a href="#">Home</a></p>
+
+{% endblock content %}
+
+{% block javascript %}
+    
+{% endblock javascript %}

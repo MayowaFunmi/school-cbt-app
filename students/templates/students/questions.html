@@ -1,0 +1,89 @@
+{% extends "landing/base1.html" %}
+
+{% block title %}CANDIDATES' ANSWER PAGE{% endblock title %}
+
+{% block style %}
+
+{% endblock style %}
+
+{% block content %}
+
+    <div class="form-group">
+        {% if messages %}
+            {% for message in messages %}
+                {% if message.tags == 'error' %}
+                    <div class="alert alert-danger" style="margin-top:10px">
+                        {{ message }}
+                    </div>
+                {% endif %}
+                {% if message.tags == 'success' %}
+                    <div class="alert alert-success" style="margin-top:10px">{{ message }}</div>
+                {% endif %}
+            {% endfor %}
+        {% endif %}
+    </div>
+
+    <div class="container">
+        <form method="POST" id="post-form">
+            {% csrf_token %}
+            {% for question in questions %}
+                <table>
+                    <tr>
+                        <td><strong>{{question.id}} ) {{ question.question }}</strong></td>
+                    </tr>
+                    <tr>
+                        <td><input type="radio" id="A" name="question" value="{{ question.option_A }}" checked>{{ question.option_A }}</td>
+                    </tr>
+                    <tr>
+                        <td><input type="radio" id="B" name="question" value="{{ question.option_B }}">{{ question.option_B }}</td>
+                    </tr>
+                    <tr>
+                        <td><input type="radio" id="C" name="question" value="{{ question.option_C }}">{{ question.option_C }}</td>
+                    </tr>
+                    <tr>
+                        <td><input type="radio" id="D" name="question" value="{{ question.option_D }}">{{ question.option_D }}</td>
+                    </tr>
+                    <tr>
+                        <td><input type="hidden" id="correct" name="answer" value="{{ question.answer }}"></td>
+                    </tr>
+                    <hr>
+                </table>
+            {% endfor %}
+            <div class="form-group">
+                <input type="button" id='btn1' name='submit' class="btn btn-block btn-info btn-insert-data" value="Submit" />
+            </div>
+
+        </form>
+
+        {% include "pagination.html" %}
+
+    </div>
+{% endblock %}
+
+{% block javascript %}
+    <script>
+        score = 0
+        $(document).ready(function () {
+            $("input[type='button']").click(function(){
+                var student_answer = $("input[name='question']:checked").attr('id')
+                var correct_answer = $("input[name='answer']").val()
+
+                if (student_answer == correct_answer) {
+                    increment();
+                    console.log(score)
+                } else {
+                    score;
+                    console.log(score)
+                }
+            });
+        });
+
+        function increment() {
+            score += 1
+        };
+    </script>
+{% endblock javascript %}
+<!--
+$("input[name='${question.id}']:checked")
+$("input").is(":checked")
+-->

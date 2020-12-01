@@ -1,0 +1,269 @@
+{% extends 'landing/base.html' %}
+{% load static %}
+
+{% block title %}Exams in Django Ajax{% endblock %}
+
+{% block content %}
+
+    <div class='container'>
+        {% if user.is_authenticated %}
+            <h2>EXAMINER: {{ user.username }} ({{ user.unique_id }})</h2>
+            <h2>SUBJECT: Civic Education</h2>
+            <h2>DEPARTMENT: General Studies</h2>
+            <h2>CLASS: SSS 3</h2>
+
+        {% endif %}
+    </div>
+
+    <!-- Add New Exam Form Page -->
+    <div class="container">
+        <h1>Exam Questions</h1>
+        <div class="row">
+            <div class="col-md-4 ">
+                <h3>Add New Question</h3>
+                <form id="addQuestion" action="" method="POST">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <input class="form-control" type="text" name="question"  style="width: 200px; height: 100px;" placeholder="Enter Your Question" required>
+                    </div>
+
+                    <div class="form-group">
+                        <input class="form-control" type="text" name="option_A" placeholder="Enter option A" required>
+                    </div>
+
+                    <div class="form-group">
+                        <input class="form-control" type="text" name="option_B" placeholder="Enter option B" required>
+                    </div>
+
+                    <div class="form-group">
+                        <input class="form-control" type="text" name="option_C" placeholder="Enter option C" required>
+                    </div>
+
+                    <div class="form-group">
+                        <input class="form-control" type="text" name="option_D" placeholder="Enter option D" required>
+                    </div>
+
+                    <div class="form-group">
+                        <input class="form-control" type="text" name="correct_answer" placeholder="Enter Correct Answer" maxlength="1" required>
+                    </div>
+
+                    <button class="btn btn-primary form-control" type="submit">SUBMIT QUESTION</button>
+                </form>
+            </div>
+
+            <!-- Display Already Registered Data from Database -->
+            <div class="col-md-8">
+                <h3 id="top">Your Questions</h3>
+                {% if questions %}
+                    {% for question in questions %}
+                        <div id="userQuestion">
+                            <div id="user-{{ question.id }}">
+                                <h2 class="userQuestion userData" id="question">Q{{question.id}}) {{ question.question }}</h2>
+                                <h3 class="userOption_A userData" id="option_A">A. {{question.option_A}}</h3>
+                                <h3 class="userOption_B userData" id="option_B">B. {{question.option_B}}</h3>
+                                <h3 class="userOption_C userData" id="option_C">C. {{question.option_C}}</h3>
+                                <h3 class="userOption_D userData" id="option_D">D. {{question.option_D}}</h3>
+                                <h3 class="userAnswer userData" id="correct_answer">Answer: {{question.answer}}</h3>
+                                <button class="btn btn-success" onClick="editQuestion({{question.id}})" data-toggle="modal" data-target="#myModal">EDIT</button>
+                                <button class="btn btn-danger" onClick="deleteQuestion({{question.id}})">DELETE</button>
+                            </div>
+                        </div>
+                        <br>
+                    {% endfor %}
+                {% else %}
+                    You Have No Question Yet
+                {% endif %}
+                <p>Go to the <a href="#top">TOP</a> of the page</p>
+            </div>
+        </div>
+    </div>
+  <!-- Modal  For Update Data-->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Update User</h4>
+                </div>
+
+                <!-- Update Form Data -->
+                <form id="updateQuestion" action="" method="POST">
+                    {% csrf_token %}
+                    <div class="modal-body">
+                        <label for="name">Question</label>
+                        <input class="form-control" id="form-question" name="formQuestion"/>
+
+                        <label for="name">option_A</label>
+                        <input class="form-control" id="form-option_A" name="formOption_A"/>
+
+                        <label for="name">option_B</label>
+                        <input class="form-control" id="form-option_B" name="formOption_B"/>
+
+                        <label for="name">option_C</label>
+                        <input class="form-control" id="form-option_C" name="formOption_C"/>
+
+                        <label for="name">option_D</label>
+                        <input class="form-control" id="form-option_D" name="formOption_D"/>
+
+                        <label for="name">correct_answer</label>
+                        <input class="form-control" id="form-correct_answer" name="formCorrect_answer"/>
+
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary" >Save Changes</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascript %}
+    <script>
+        // Create Django Ajax Call
+        $("form#addQuestion").submit(function() {
+            var questionInput = $('input[name="question"]').val().trim();
+            var option_AInput = $('input[name="option_A"]').val().trim();
+            var option_BInput = $('input[name="option_B"]').val().trim();
+            var option_CInput = $('input[name="option_C"]').val().trim();
+            var option_DInput = $('input[name="option_D"]').val().trim();
+            var correct_answerInput = $('input[name="correct_answer"]').val().trim();
+
+            if (questionInput && option_AInput && option_BInput && option_CInput && option_DInput && correct_answerInput) {
+                // Create Ajax Call
+                $.ajax({
+                    url: '{% url "exams:civic3" %}',
+                    data: {
+                        'question': questionInput,
+                        'option_A': option_AInput,
+                        'option_B': option_BInput,
+                        'option_C': option_CInput,
+                        'option_D': option_DInput,
+                        'correct_answer': correct_answerInput
+                    },
+                    dataType: 'json',
+                    // add textStatus, jqXHR to success function and console.log them
+                    // add jqXHR, textStatus, errorThrown to error function and console.log them
+                    success: function (data, textStatus, jqXHR) {
+                        console.log(data);
+                        console.log(textStatus);
+                        console.log(jqXHR);
+
+                        if (data.question) {
+                            console.log(data.question);
+                        displayQuestions(data.question);
+                        }
+                    },
+                });
+            } else {
+                alert("All fields must have a valid value.");
+            }
+            $('form#addQuestion').trigger("reset");
+            //return false;
+        });
+        function displayQuestions(question) {
+            $('#userQuestion').append(`
+                <div id="userQuestion">
+                    <h2>Q${question.id}) ${question.question}</h2>
+                    <h3>A. ${question.option_A}</h3>
+                    <h3>B. ${question.option_B}</h3>
+                    <h3>C. ${question.option_C}</h3>
+                    <h3>D. ${question.option_D}</h3>
+                    <h3>Answer: ${question.answer}</h3>
+                    <button class="btn btn-success" onClick="editQuestion(${question.id})" data-toggle="modal" data-target="#myModal">EDIT</button>
+                    <button class="btn btn-danger" onClick="deleteQuestion(${question.id})">DELETE</button>
+                </div>
+            `)
+        }
+
+        $("form#updateQuestion").submit(function() {
+            var questionInput = $('input[name="formQuestion"]').val().trim();
+            var option_AInput = $('input[name="formOption_A"]').val().trim();
+            var option_BInput = $('input[name="formOption_B"]').val().trim();
+            var option_CInput = $('input[name="formOption_C"]').val().trim();
+            var option_DInput = $('input[name="formOption_D"]').val().trim();
+            var correct_answerInput = $('input[name="correct_answer"]').val().trim();
+
+            if (questionInput && option_AInput && option_BInput && option_CInput && option_DInput && correct_answerInput) {
+                // Create Ajax Call
+                $.ajax({
+                    url: '{% url "exams:update_question" %}',
+                    data: {
+                        'question': questionInput,
+                        'option_A': option_AInput,
+                        'option_B': option_BInput,
+                        'option_C': option_CInput,
+                        'option_D': option_DInput,
+                        'correct_answer': correct_answerInput
+                    },
+                    dataType: 'json',
+                    success: function (data, textStatus, jqXHR) {
+                        console.log(data);
+                        console.log(textStatus);
+                        console.log(jqXHR);
+
+                        if (data.question) {
+                            console.log(data.question);
+                            updateQuestion(data.question);
+                            function updateQuestion(question) {
+                                $('#userQuestion #user-' + question.id).children('.userData').each(function () {
+                                    let attr = $(this).attr("id");
+                                    if (attr == "question") {
+                                        $(this).text(question.question);
+                                    } else if (attr == "option_A") {
+                                        $(this).text(question.option_A);
+                                    } else if (attr == "option_B") {
+                                        $(this).text(question.option_B);
+                                    } else if (attr == "option_C") {
+                                        $(this).text(question.option_C);
+                                    } else if (attr == "option_D") {
+                                        $(this).text(question.option_D);
+                                    } else if (attr == "correct_answer") {
+                                        $(this).text(question.answer);
+                                    }
+                                })
+                            }
+                        }
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        console.log(jqXHR);
+                        console.log(textStatus);
+                        console.log(errorThrown);
+                    }
+                });
+            } else {
+                alert("All fields must have a valid value.");
+            }
+            //$('form#updateQuestion').trigger("reset");
+            //$('#myModal').modal('hide');
+            //return false;
+        });
+
+        // Update Question
+        function editQuestion(id) {
+        if (id) {
+            // get the data already in the database
+            var que = "#user-" + id;
+            var question = $(que).find(".userQuestion").text();
+            var option_A = $(que).find(".userOption_A").text();
+            var option_B = $(que).find(".userOption_B").text();
+            var option_C = $(que).find(".userOption_C").text();
+            var option_D = $(que).find(".userOption_D").text();
+            var correct_answer = $(que).find(".userAnswer").text();
+
+            // append the values into the modal update fom page
+
+            $('#form-question').val(question);
+            $('#form-option_A').val(option_A);
+            $('#form-option_B').val(option_B);
+            $('#form-option_C').val(option_C);
+            $('#form-option_D').val(option_D);
+            $('#form-correct_answer').val(correct_answer);
+
+        }
+    }
+
+    </script>
+{% endblock javascript %}

@@ -1,0 +1,46 @@
+{% extends 'landing/base1.html' %}
+
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block title %}Candidate Profile Details{% endblock %}
+
+{% block content %}
+    <div>
+        {% if messages %}
+            <ul class="messages">
+                {% for message in messages %}
+                    <li class="{{ message.tags }}">
+                        {{ message|safe }}
+                    </li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    </div>
+    <div>
+        <h2>Welcome, {{ last_name }} {{ first_name }},</h2>
+        <h2>Here are your personal profile details:</h2>
+        <div>
+            <p>
+                <strong>
+                    User: {{ user }}<br>
+                    User id: {{ unique_id }}<br>
+                    Username: {{ username }}<br>
+                    Status: {{ status }}<br>
+                    Middle Name: {{ middle_name }}<br>
+                    Gender: {{ gender }}<br>
+                    Age: {{ age }}<br>
+                    Address: {{ address }}<br>
+                    Religion: {{ religion }}<br>
+                    Phone Number: {{ phone }}<br>
+                    Email: {{ email }}<br>
+                    Height: {{ height }}<br>
+                    Hobbies: {{ hobbies }}<br>
+                    About You: {{ about_me }}<br>
+                </strong>
+            </p>
+        </div>
+        <p>Register for examination <a href="{% url 'exams:register_exam' %}">HERE</a></p>
+        <p>Take Exams <a href="{% url 'exams:answer' %}">HERE</a></p>
+    </div>
+{% endblock content %}

@@ -1,0 +1,111 @@
+{% extends 'landing/base1.html' %}
+{% load static %}
+
+
+{% block title %}Exams in Django Ajax{% endblock %}
+
+{% block content %}
+
+    <!-- Add New Exam Form Page -->
+    <div class="container">
+        <h1>Exam Questions</h1>
+        <div class="row">
+            <div class="col-md-8 ">
+                <h3>Add New Question</h3>
+                <form id="addQuestion" method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+
+                    <div class="form-group">
+                        {% if messages %}
+                            {% for message in messages %}
+                                {% if message.tags == 'error' %}
+                                    <div class="alert alert-danger" style="margin-top:10px">
+                                        {{ message }}
+                                    </div>
+                                {% endif %}
+                                {% if message.tags == 'success' %}
+                                    <div class="alert alert-success" style="margin-top:10px">{{ message }}</div>
+                                {% endif %}
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+
+                    <div class="form-group">
+                        <label>Examiner:</label>
+                        <select class="form-control" name="examiner" id='examiner'>
+                            <option value="{{ examiner.id }}">{{ examiner.first_name }} {{ examiner.last_name }}</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Department:</label>
+                        <select class="form-control" name="department" id='department'>
+                            {% for dept in departments %}
+                                <option value="{{ dept.id }}">{{ dept.department }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Student Class:</label>
+                        <select class="form-control" name="student_class" id='student_class'>
+                            {% for std_class in stds_class %}
+                                <option value="{{ std_class.id }}">{{ std_class.student_class }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Student Level:</label>
+                        <select class="form-control" name="student_level" id='student_level'>
+                            {% for std_level in stds_level %}
+                                <option value="{{ std_level.id }}">{{ std_level.student_level }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Subject:</label>
+                        <select class="form-control" name="subject" id='subject'>
+                            {% for subject in subjects %}
+                                <option value="{{ subject.id }}">{{ subject.subject_name }} ({{ subject.subject_code }})</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Question:</label>
+                        <input class="form-control" type="text" name="question"  style="width: 200px; height: 100px;" placeholder="Enter Your Question" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Option A:</label>
+                        <input class="form-control" type="text" name="option_A" placeholder="Enter option A" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Option B:</label>
+                        <input class="form-control" type="text" name="option_B" placeholder="Enter option B" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Option C:</label>
+                        <input class="form-control" type="text" name="option_C" placeholder="Enter option C" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Option D:</label>
+                        <input class="form-control" type="text" name="option_D" placeholder="Enter option D" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Correct Answer:</label>
+                        <input class="form-control" type="text" name="correct_answer" placeholder="Enter Correct Answer" maxlength="1" required>
+                    </div>
+
+                    <button id='button' class="btn btn-primary form-control" type="submit">SUBMIT QUESTION</button>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

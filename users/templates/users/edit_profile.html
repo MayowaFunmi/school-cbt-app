@@ -1,0 +1,22 @@
+{% extends 'landing/base1.html' %}
+{% load static %}
+
+{% block title %}Update Profile{% endblock %}
+
+{% block content %}
+    <div>
+        {% if request.user.is_authenticated %}
+            {% if request.user.status == 'candidate' %}
+                <p>To update your profile, click <a href="{% url 'users:candidate_profile' %}">Update Candidate Profile</a></p>
+                <p>To register for examination, click</p>
+                <p>To take examination, click</p>
+            {% elif request.user.status == 'examiner' %}
+                <a href="{% url 'users:examiner_profile' %}">Update Examiner Profile</a>
+            {% else %}
+                <h2>Please register as either a candidate or an examiner</h2>
+            {% endif %}
+
+        {% endif %}
+
+    </div>
+{% endblock content %}

@@ -1,0 +1,39 @@
+{% extends 'landing/base1.html' %}
+{% load static %}
+
+
+{% block title %}Examiner Details{% endblock %}
+
+{% block content %}
+    <h1>Welcome, {{ examiner.last_name }} {{ examiner.first_name }} ({{ examiner.unique_id }})</h1>
+    <h2>Below is the list of your exam details you registered for:</h2>
+
+    <div>
+        <h1>Departments:</h1>
+            {% for detail in details %}
+                <h3>{{ detail.department }}</h3>
+            {% endfor %}
+    </div>
+
+    <div>
+        <h1>Class:</h1>
+            {% for detail in details %}
+                <h3>{{ detail.student_class }}</h3>
+            {% endfor %}
+    </div>
+
+    <div>
+        <h1>Level:</h1>
+            {% for detail in details %}
+                <h3>{{ detail.student_level }}</h3>
+            {% endfor %}
+    </div>
+
+    <div>
+        <h1>Subjects:</h1>
+            {% for detail in details %}
+                <h3>{{ detail.subject.subject_name }} ({{ detail.subject.subject_code }})</h3>
+            {% endfor %}
+    </div>
+
+{% endblock %}

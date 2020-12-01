@@ -1,0 +1,49 @@
+{% extends 'landing/base1.html' %}
+{% load static %}
+
+{% block title %}Exaniners Profile Details{% endblock %}
+
+{% block content %}
+    <div>
+        {% if messages %}
+            <ul class="messages">
+                {% for message in messages %}
+                    <li class="{{ message.tags }}">
+                        {{ message }}
+                    </li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    </div>
+
+    <div>
+        <h2>Welcome, {{ title }}. {{ first_name }} {{ last_name }},</h2>
+        <h2>Here are your personal profile details:</h2>
+        <div>
+            <p>
+                <strong>
+                    User id: {{ unique_id }}<br>
+                    Middle Name: {{ middle_name }}<br>
+                    Status: {{ status }}<br>
+                    Qualification: {{ qualification }}<br>
+                    Discipline: {{ discipline }}<br>
+                    Published Work: <a href="{{ published_work }}">{{ published_work }}</a><br>
+                    Gender: {{ gender }}<br>
+                    Age: {{ age }}<br>
+                    Address: {{ address }}<br>
+                    Religion: {{ religion }}<br>
+                    Phone Number: {{ phone_num }}<br>
+                    Email: {{ email }}<br>
+                    Height: {{ height }}<br>
+                    About You: {{ about_me }}<br>
+                </strong>
+            </p>
+        </div>
+
+        <div>
+            <h2>Click <a href="{% url 'users:update_examiner' %}">HERE</a> to update your profile</h2>
+            <h2>Click <a href="{% url 'exam_question:exam_register' %}">HERE</a> to register for exams</h2>
+            <h2>Click <a href="{% url 'exam_question:choose_exam' %}">HERE</a> to set exam questions</h2>
+        </div>
+    </div>
+{% endblock content %}

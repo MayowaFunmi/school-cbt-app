@@ -1,0 +1,30 @@
+{% extends 'landing/base1.html' %}
+{% load static %}
+
+{% block title %}Examiner Profile Detail{% endblock %}
+
+{% block content %}
+    Profile Picture: {{ profile_pic }}<br>
+    Unique ID: {{ unique_id }}<br>
+    Status: {{ status }}<br>
+    Middle Name: {{ middle_name }}<br>
+    Username: {{ username }}<br>
+    Qualification: {{ qualification }}<br>
+    Username: {{ username }}<br>
+    Discipline: {{ discipline }}<br>
+    Published Work: {{ published_work }}<br>
+    Gender: {{ gender }}<br>
+    Date of Birth: {{ dob }}<br>
+    Age: {{ age }}<br>
+    Religion: {{ religion }}<br>
+    Phone Number: {{ phone_num }}<br>
+    Email: {{ email }}<br>
+    height: {{ height }}<br>
+    About You: {{ about_me }}
+
+    <h2>Click <a href="{% url 'users:update_examiner' %}">HERE</a> to update your profile</h2>
+    <h2>Click <a href="{% url 'exam_question:exam_register' %}">HERE</a> to register for exams</h2>
+    <h2>Click <a href="{% url 'exam_question:choose_exam' %}">HERE</a> to set exam questions</h2>
+
+{% endblock content %}
+choose_exam

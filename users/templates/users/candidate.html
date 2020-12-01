@@ -1,0 +1,24 @@
+{% extends 'landing/base1.html' %}
+
+{% block title %}Candidate Details{% endblock %}
+
+{% block content %}
+    Profile Picture: {{ profile_pic }}<br>
+    Status: {{ status }}<br>
+    Unique ID: {{ unique_id }}<br>
+    Middle Name: {{ middle_name }}<br>
+    Username: {{ username }}<br>
+    Gender: {{ gender }}<br>
+    Date of Birth: {{ dob }}<br>
+    Age: {{ age }}<br>
+    Religion: {{ religion }}<br>
+    Phone Number: {{ phone_num }}<br>
+    Email: {{ email }}<br>
+    height: {{ height }}<br>
+    Hobbies: {{ hobbies }}<br>
+    About You: {{ about_me }}
+
+    <h2>Click <a href="{% url 'users:update_candidate' %}">HERE</a> to update your profile</h2>
+    <p>Register for examination <a href="{% url 'exams:register_exam' %}">HERE</a></p>
+    <p>Take Exams <a href="{% url 'student:select_subject' %}">HERE</a></p>
+{% endblock content %}

@@ -1,0 +1,48 @@
+#list1 li {
+    color: grey;
+    display: inline;
+    list-style-type: none;
+    float: left;
+    border-style: ridge;
+    margin-top: -10px;
+    margin-right: -1px;
+    border-width: 1px;
+    padding: 15px 20px 15px 20px;   /* top right bottom left */
+
+}
+
+#list2 li {
+    margin-top: -10px;
+    margin-right: -1px;
+    color: grey;
+    display: inline;
+    list-style-type: none;  /* remove bullets from list items */
+    float: right;
+    border-style: ridge;
+    border-width: 1px;
+    padding: 15px 20px 15px 20px;   /* top right bottom left */
+}
+
+#header-font {
+    color: red;
+    font-family: 'Tangerine', serif;
+    font-size: 50px;
+    font-weight: bold;
+    text-shadow: 4px 4px 4px #aaa
+}
+
+a#home {
+    padding: 15px 20px 15px 20px;  /* top right bottom left */
+    border-top: 2px solid #ff432e;
+    background: red;
+    color: #fff;
+}
+#bar-list li {
+    border-style: ridge;
+    border-width: 1px;
+}
+
+#back-img {
+    background: url("/static/img/student_exam.jpeg");
+    color: black;
+}

@@ -1,0 +1,249 @@
+{% extends 'landing/base1.html' %}
+{% load static %}
+
+{% block title %}Exams in Django Ajax{% endblock %}
+
+{% block content %}
+
+    <!-- Add New Exam Form Page -->
+    <div class="container">
+        <h1>Exam Questions</h1>
+        <div class="row">
+            <div class="col-md-4 ">
+                <h3>Add New Question</h3>
+                <form id="addQuestion" action="" method="POST">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label>Examiner:</label>
+                        <select class="form-control" name="examiner" id='examiner'>
+                            <option value="{{ examiner.id }}">{{ examiner.first_name }} {{ examiner.last_name }}</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Department:</label>
+                        <select class="form-control" name="department" id='department'>
+                            {% for dept in departments %}
+                                <option value="{{ dept.id }}">{{ dept.department }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Student Class:</label>
+                        <select class="form-control" name="student_class" id='student_class'>
+                            {% for std_class in stds_class %}
+                                <option value="{{ std_class.id }}">{{ std_class.student_class }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Student Level:</label>
+                        <select class="form-control" name="student_level" id='student_level'>
+                            {% for std_level in stds_level %}
+                                <option value="{{ std_level.id }}">{{ std_level.student_level }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Subject:</label>
+                        <select class="form-control" name="subject" id='subject'>
+                            {% for subject in subjects %}
+                                <option value="{{ subject.id }}">{{ subject.subject_name }} ({{ subject.subject_code }})</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Question:</label>
+                        <input class="form-control" type="text" name="question"  style="width: 200px; height: 100px;" placeholder="Enter Your Question" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Option A:</label>
+                        <input class="form-control" type="text" name="option_A" placeholder="Enter option A" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Option B:</label>
+                        <input class="form-control" type="text" name="option_B" placeholder="Enter option B" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Option C:</label>
+                        <input class="form-control" type="text" name="option_C" placeholder="Enter option C" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Option D:</label>
+                        <input class="form-control" type="text" name="option_D" placeholder="Enter option D" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Correct Answer:</label>
+                        <input class="form-control" type="text" name="correct_answer" placeholder="Enter Correct Answer" maxlength="1" required>
+                    </div>
+
+                    <button id='button' class="btn btn-primary form-control" type="submit">SUBMIT QUESTION</button>
+                </form>
+            </div>
+
+            <!-- Display Already Registered Data from Database -->
+            <div class="col-md-8">
+                <h3 id="top">Your Questions</h3>
+                {% if questions %}
+                    {% for question in questions %}
+                        <div id="userQuestion">
+                            <div id="user-{{ question.id }}">
+                                <h3 class="userExaminer userData" id="examiner" style="display: none;">A. {{question.examiner}}</h3>
+                                <h3 class="userDepartment userData" id="department" style="display: none;">A. {{question.department}}</h3>
+                                <h3 class="userStudent_class userData" id="student_class" style="display: none;">A. {{question.student_class}}</h3>
+                                <h3 class="userStudent_level userData" id="student_level" style="display: none;">A. {{question.student_level}}</h3>
+                                <h3 class="userSubject userData" id="subject" style="display: none;">A. {{question.subject}}</h3>
+                                <h2 class="userQuestion userData" id="question">Q{{question.id}}) {{ question.question }}</h2>
+                                <h3 class="userOption_A userData" id="option_A">A. {{question.option_A}}</h3>
+                                <h3 class="userOption_B userData" id="option_B">B. {{question.option_B}}</h3>
+                                <h3 class="userOption_C userData" id="option_C">C. {{question.option_C}}</h3>
+                                <h3 class="userOption_D userData" id="option_D">D. {{question.option_D}}</h3>
+                                <h3 class="userAnswer userData" id="correct_answer">Answer: {{question.answer}}</h3>
+                                <button class="btn btn-success" onClick="editQuestion({{question.id}})" data-toggle="modal" data-target="#myModal">EDIT</button>
+                                <button class="btn btn-danger" onClick="deleteQuestion({{question.id}})">DELETE</button>
+                            </div>
+                        </div>
+                        <br>
+                    {% endfor %}
+                {% else %}
+                    You Have No Question Yet
+                {% endif %}
+                <p>Go to the <a href="#top">TOP</a> of the page</p>
+            </div>
+        </div>
+    </div>
+  <!-- Modal  For Update Data-->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Update User</h4>
+                </div>
+
+                <!-- Update Form Data -->
+                <form id="updateQuestion" action="" method="POST">
+                    {% csrf_token %}
+                    <div class="modal-body">
+                        <label>Question</label>
+                        <input class="form-control" id="form-question" name="formQuestion"/>
+
+                        <label>option_A</label>
+                        <input class="form-control" id="form-option_A" name="formOption_A"/>
+
+                        <label>option_B</label>
+                        <input class="form-control" id="form-option_B" name="formOption_B"/>
+
+                        <label>option_C</label>
+                        <input class="form-control" id="form-option_C" name="formOption_C"/>
+
+                        <label>option_D</label>
+                        <input class="form-control" id="form-option_D" name="formOption_D"/>
+
+                        <label>correct_answer</label>
+                        <input class="form-control" id="form-correct_answer" name="formCorrect_answer"/>
+
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary" >Save Changes</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascript %}
+    <script>
+        // Create Ajax Call
+        $(document).ready(function() {
+            $("#addQuestion").submit(function() {
+                var examinerInput = $('#examiner').val();
+                var departmentInput = $('#department').val();
+                var student_classInput = $('#student_class').val();
+                var student_levelInput = $('#student_level').val();
+                var subjectInput = $('#subject').val();
+                var questionInput = $('input[name="question"]').val();
+                var option_AInput = $('input[name="option_A"]').val();
+                var option_BInput = $('input[name="option_B"]').val();
+                var option_CInput = $('input[name="option_C"]').val();
+                var option_DInput = $('input[name="option_D"]').val();
+                var correct_answerInput = $('input[name="correct_answer"]').val();
+
+                if (examinerInput && departmentInput && student_classInput && student_levelInput && subjectInput && questionInput && option_AInput && option_BInput && option_CInput && option_DInput && correct_answerInput) {
+                    // Create Ajax Call
+                    $.ajax({
+                        url: '{% url "question:que" %}',
+                        data: {
+                            'examiner': examinerInput,
+                            'department': departmentInput,
+                            'student_class': student_classInput,
+                            'student_level': student_levelInput,
+                            'subject': subjectInput,
+                            'question': questionInput,
+                            'option_A': option_AInput,
+                            'option_B': option_BInput,
+                            'option_C': option_CInput,
+                            'option_D': option_DInput,
+                            'correct_answer': correct_answerInput
+                        },
+                        dataType: 'json',
+                        success: function (data, textStatus, jqXHR) {
+                            console.log(data);
+                            console.log(textStatus);
+                            console.log(jqXHR);
+
+                            if (data.question) {
+                                console.log(data.question);
+                                displayQuestions(data.question);
+                            }
+                        },
+                        // add jqXHR, textStatus, errorThrown to error function and console.log them
+                        error: function (jqXHR, textStatus, errorThrown) {
+                            console.log(jqXHR);
+                            console.log(textStatus);
+                            console.log(errorThrown);
+                        }
+                    })
+                } else {
+                    console.log("All fields must have a valid value.");
+                }
+                $('#addQuestion').trigger("reset");
+                //return false;
+        
+            });
+
+            function displayQuestions(question) {
+                $('#userQuestion').append(`
+                    <div id="userQuestion">
+                        <h3>${question.examiner}</h3>
+                        <h3>${question.department}</h3>
+                        <h3>${question.student_class}</h3>
+                        <h3>${question.student_level}</h3>
+                        <h3>${question.subject}</h3>
+                        <h2>Q${question.id}) ${question.question}</h2>
+                        <h3>A. ${question.option_A}</h3>
+                        <h3>B. ${question.option_B}</h3>
+                        <h3>C. ${question.option_C}</h3>
+                        <h3>D. ${question.option_D}</h3>
+                        <h3>Answer: ${question.answer}</h3>
+                        <button class="btn btn-success" onClick="editQuestion(${question.id})" data-toggle="modal" data-target="#myModal">EDIT</button>
+                        <button class="btn btn-danger" onClick="deleteQuestion(${question.id})">DELETE</button>
+                    </div>
+                `)
+            }
+        }) 
+    </script>
+
+{% endblock %}

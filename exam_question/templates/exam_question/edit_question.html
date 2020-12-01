@@ -1,0 +1,68 @@
+{% extends 'landing/base1.html' %}
+{% load static %}
+
+
+{% block title %}Exams in Django Ajax{% endblock %}
+
+{% block content %}
+
+    <div class="form-group">
+        {% if messages %}
+            {% for message in messages %}
+                {% if message.tags == 'error' %}
+                    <div class="alert alert-danger" style="margin-top:10px">
+                        {{ message }}
+                    </div>
+                {% endif %}
+                {% if message.tags == 'success' %}
+                    <div class="alert alert-success" style="margin-top:10px">{{ message }}</div>
+                {% endif %}
+            {% endfor %}
+        {% endif %}
+    </div>
+
+    <div class="container">
+        <h1>Edit Questions</h1>
+        <div class="row">
+            <div class="col-md-8 ">
+                <h3>Edit Question {{ question.id }}</h3>
+                <form method="POST">
+                    {% csrf_token %}
+
+                    <div class="form-group">
+                        <label>Question:</label>
+                        <input type="text" name="question" class="form-control" value="{{ question.question }}">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Option A:</label>
+                        <input type="text" name="option_A" class="form-control" value="{{ question.option_A }}">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Option B:</label>
+                        <input type="text" name="option_B" class="form-control" value="{{ question.option_B }}">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Option C:</label>
+                        <input type="text" name="option_C" class="form-control" value="{{ question.option_C }}">
+                    </div>
+                    <div class="form-group">
+                        <label>Option D:</label>
+                        <input type="text" name="option_D" class="form-control" value="{{ question.option_D }}">
+                    </div>
+                    <div class="form-group">
+                        <label>Correct Answer:</label>
+                        <input type="text" name="answer" class="form-control" value="{{ question.answer }}">
+                    </div>
+
+                    <div class="card-footer">
+                        <button type="submit" class="btn btn-primary btn-block">Edit Question</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

@@ -1,0 +1,99 @@
+{% extends 'landing/base1.html' %}
+{% load crispy_forms_tags %}
+
+
+{% block title %}CANDIDATES' EXAM REGISTRATION{% endblock title %}
+
+{% block style %}
+
+{% endblock style %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+            <!-- general form elements -->
+            <div class="card card-primary">
+                <div class="card-header" style="background: blue;">
+                    <h3 class="card-title">Candidate Exam Registration Page</h3>
+                </div>
+
+                <form role="form" action="" method="post">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label style="background: blue;">Candidate:</label>
+                        <select class="form-control" name="candidate">
+                            <option value="{{ candidate.id }}">{{ candidate.last_name }} {{ candidate.first_name }}</option>
+                        </select>
+                    </div>
+
+                    <div class="card-body">
+                        <div class="form-group">
+                            <label style="background: blue;">Department Name</label>
+                            <select class="form-control" name="department">
+                                {% for dept in departments %}
+                                    <option value="{{ dept.id }}">{{ dept.department }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="card-body">
+                        <div class="form-group">
+                            <label style="background: blue;">Student Class</label>
+                            <select class="form-control" name="student_class">
+                                {% for std_class in student_class %}
+                                    <option value="{{ std_class.id }}">{{ std_class }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="card-body">
+                        <div class="form-group">
+                            <label style="background: blue;">Student Level</label>
+                            <select class="form-control" name="student_level">
+                                {% for std_level in student_level %}
+                                    <option value="{{ std_level.id }}">{{ std_level }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="card-body">
+                        <div class="form-group">
+                            <label style="background: blue;">Subjects:</label><br>
+                                {% for subject in subjects %}
+                                    <label style="background: blue;">{{ subject.subject_name }} ({{ subject.subject_code }})</label>
+                                    <input type="checkbox" name="subject" value="{{ subject.id }}"><br>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        {% if messages %}
+                            {% for message in messages %}
+                                {% if message.tags == 'error' %}
+                                    <div class="alert alert-danger" style="margin-top:10px">{{ message }}</div>
+                                {% endif %}
+                                {% if message.tags == 'success' %}
+                                    <div class="alert alert-success" style="margin-top:10px">{{ message }}</div>
+                                {% endif %}
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+
+                    <div class="card-footer">
+                        <button type="submit" class="btn btn-primary btn-block">Register</button>
+                    </div>
+
+                </form>
+            </div>
+            </div>
+        </div>
+    </div>
+{% endblock content %}
+
+{% block javascript %}
+{% endblock javascript %}

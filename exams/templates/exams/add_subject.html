@@ -1,0 +1,83 @@
+{% extends 'landing/base1.html' %}
+{% load static %}
+
+{% block title %}Add Subject{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+            <!-- general form elements -->
+            <div class="card card-primary">
+                <div class="card-header" style="background: blue;">
+                    <h3 class="card-title">Add Subject</h3>
+                </div>
+
+                <form role="form" action="{% url 'exams:add_subject_save' %}" method="post">
+                    {% csrf_token %}
+                    {% if user.is_authenticated %}
+                        {% if request.user.is_staff == True %}
+                            <div class="form-group">
+                                <label style="background: blue;">Admin Staff:</label>
+                                <select class="form-control" name="admin">
+                                    <option value="{{ admin.id }}">{{ admin }}</option>
+                                </select>
+                            </div>
+                        {% elif request.user.status == 'candidate' %}
+                            <div class="form-group">
+                                <label style="background: blue;">Candidate:</label>
+                                <select class="form-control" name="candidate">
+                                    <option value="{{ candidate.id }}">{{ candidate.first_name }} {{ candidate.last_name }}</option>
+                                </select>
+                            </div>
+                        {% endif %}
+                    {% endif %}
+
+                    <div class="card-body">
+                        <div class="form-group">
+                            <label style="background: blue;">Subject Name</label>
+                            <input type="text" class="form-control" name="subject_name" placeholder="Enter Subject Name">
+                        </div>
+                    </div>
+
+                    <div class="card-body">
+                        <div class="form-group">
+                            <label style="background: blue;">Subject Code</label>
+                            <input type="text" class="form-control" name="subject_code" placeholder="Enter Subject Code">
+                        </div>
+                    </div>
+
+                    <div class="card-body">
+                        <div class="form-group">
+                            <label style="background: blue;">Department Name</label>
+                            <select class="form-control" name="department">
+                                {% for dept in depts %}
+                                    <option value="{{ dept.id }}">{{ dept.department }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        {% if messages %}
+                            {% for message in messages %}
+                                {% if message.tags == 'error' %}
+                                    <div class="alert alert-danger" style="margin-top:10px">{{ message }}</div>
+                                {% endif %}
+                                {% if message.tags == 'success' %}
+                                    <div class="alert alert-success" style="margin-top:10px">{{ message }}</div>
+                                {% endif %}
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+
+                    <div class="card-footer">
+                        <button type="submit" class="btn btn-primary btn-block">Add Subject</button>
+                    </div>
+                </form>
+            </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock content %}

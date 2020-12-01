@@ -1,0 +1,66 @@
+{% extends 'landing/base1.html' %}
+{% load static %}
+
+
+{% block title %}Exams in Django Ajax{% endblock %}
+
+{% block content %}
+
+    <!-- Add New Exam Form Page -->
+    <div class="container">
+        <h1>Exam Questions</h1>
+        <div class="row">
+            <div class="col-md-8 ">
+                <h3>Select Exam To Write</h3>
+                <form id="addQuestion" method="POST">
+                    {% csrf_token %}
+                        <div class="form-group">
+                            <label>Department:</label>
+                            <select class="form-control" name="department">
+                                {% for c in candidate %}
+                                    <option value="{{ c.department.id }}">{{ c.department }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Class:</label>
+                            <select class="form-control" name="student_class">
+                                {% for c in candidate %}
+                                    <option value="{{ c.student_class.id }}">{{ c.student_class }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Level:</label>
+                            <select class="form-control" name="student_level">
+                                {% for c in candidate %}
+                                    <option value="{{ c.student_level.id }}">{{ c.student_level }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Subject:</label>
+                            <select class="form-control" name="subject">
+                                {% for c in candidate %}
+                                    <option value="{{ c.subject_1.id }}">{{ c.subject_1.subject_name }}({{ c.subject_1.subject_code }})</option>
+                                    <option value="{{ c.subject_2.id }}">{{ c.subject_2.subject_name }}({{ c.subject_2.subject_code }})</option>
+                                    <option value="{{ c.subject_3.id }}">{{ c.subject_3.subject_name }}({{ c.subject_3.subject_code }})</option>
+                                    <option value="{{ c.subject_4.id }}">{{ c.subject_4.subject_name }}({{ c.subject_4.subject_code }})</option>
+                                    <option value="{{ c.subject_5.id }}">{{ c.subject_5.subject_name }}({{ c.subject_5.subject_code }})</option>
+                                    <option value="{{ c.subject_6.id }}">{{ c.subject_6.subject_name }}({{ c.subject_6.subject_code }})</option>
+                                    <option value="{{ c.subject_7.id }}">{{ c.subject_7.subject_name }}({{ c.subject_7.subject_code }})</option>
+                                    <option value="{{ c.subject_8.id }}">{{ c.subject_8.subject_name }}({{ c.subject_8.subject_code }})</option>
+                                    <option value="{{ c.subject_9.id }}">{{ c.subject_9.subject_name }}({{ c.subject_9.subject_code }})</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+
+                    <button id='button' class="btn btn-primary form-control" type="submit">Take Exam</button>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,129 @@
+{% extends 'landing/base1.html' %}
+{% load static %}
+
+{% block title %}Team Members | Mayor{% endblock %}
+
+{% block team_members %}
+    <!-- Start Team Member Section -->
+    <section id="team-section" style="background: blue;">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="section-title text-center wow fadeInDown" data-wow-duration="2s" data-wow-delay="50ms">
+                        <h2>Our Team Of Examiners</h2>
+                        <p>
+                            Below is the list of contributors to this website, and they are our examiners.<br>
+                            Click on each image to see the details of each members.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3 wow fadeInLeft" data-wow-duration="2s" data-wow-delay="300ms">
+                    <div class="team-member">
+                        <a href="#member1"><img src="{% static 'asset/images/team/team-1.jpg' %}" class="img-responsive" alt=""></a>
+                        <div class="team-details">
+                            <h4>John Doe</h4>
+                            <p>Founder & Director</p>
+                            <ul>
+                                <!-- Link each member to examiners profile  -->
+                                <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                                <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                                <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
+                                <li><a href="#"><i class="fa fa-pinterest"></i></a></li>
+                                <li><a href="#"><i class="fa fa-dribbble"></i></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div><!-- /.col-md-3 -->
+                <div class="col-md-3 wow fadeInLeft" data-wow-duration="2s" data-wow-delay="600ms">
+                    <div class="team-member">
+                        <a href="#member2"><img src="{% static 'asset/images/team/team-1.jpg' %}" class="img-responsive" alt=""></a>
+                        <div class="team-details">
+                            <h4>John Doe</h4>
+                            <p>Founder & Director</p>
+                            <ul>
+                                <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                                <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                                <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
+                                <li><a href="#"><i class="fa fa-pinterest"></i></a></li>
+                                <li><a href="#"><i class="fa fa-dribbble"></i></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div><!-- /.col-md-3 -->
+                <div class="col-md-3 wow fadeInLeft" data-wow-duration="2s" data-wow-delay="900ms">
+                    <div class="team-member">
+                        <a href="#member3"><img src="{% static 'asset/images/team/team-1.jpg' %}" class="img-responsive" alt=""></a>
+                        <div class="team-details">
+                            <h4>John Doe</h4>
+                            <p>Founder & Director</p>
+                            <ul>
+                                <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                                <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                                <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
+                                <li><a href="#"><i class="fa fa-pinterest"></i></a></li>
+                                <li><a href="#"><i class="fa fa-dribbble"></i></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div><!-- /.col-md-3 -->
+                <div class="col-md-3 wow fadeInLeft" data-wow-duration="2s" data-wow-delay="1200ms">
+                    <div class="team-member">
+                        <a href="#member4"><img src="{% static 'asset/images/team/team-1.jpg' %}" class="img-responsive" alt=""></a>
+                        <div class="team-details">
+                            <h4>John Doe</h4>
+                            <p>Founder & Director</p>
+                            <ul>
+                                <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                                <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                                <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
+                                <li><a href="#"><i class="fa fa-pinterest"></i></a></li>
+                                <li><a href="#"><i class="fa fa-dribbble"></i></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div><!-- /.col-md-3 -->
+            </div>
+        </div>
+    </section>
+    <!-- End Team Member Section -->
+
+    <!-- Examiners Details -->
+    <!--
+        <section id="testimonial-section">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="testimonial-wrapper">
+                            <div class="testimonial-item" id="member1">
+                                <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. </p>
+                                <img src="{% static 'asset/images/team/team-1.jpg' %}" alt="Testimonial images">
+                                <h5>John Doe</h5>
+                                <div class="desgnation">CEO, ThemeBean</div>
+                            </div>
+                            <div class="testimonial-item" id="member2">
+                                <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
+                                <img src="{% static 'asset/images/team/team-2.jpg' %}" alt="Testimonial images">
+                                <h5>John Doe</h5>
+                                <div class="desgnation">CEO, ThemeBean</div>
+                            </div>
+                            <div class="testimonial-item" id="member3">
+                                <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
+                                <img src="{% static 'asset/images/team/team-3.jpg' %}" alt="Testimonial images">
+                                <h5>John Doe</h5>
+                                <div class="desgnation">CEO, ThemeBean</div>
+                            </div>
+                            <div class="testimonial-item" id="member4">
+                                <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
+                                <img src="{% static 'asset/images/team/team-4.jpg' %}" alt="Testimonial images">
+                                <h5>John Doe</h5>
+                                <div class="desgnation">CEO, ThemeBean</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>-->
+    <!-- End Testimonial Section -->
+{% endblock team_members %}
